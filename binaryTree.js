@@ -134,7 +134,7 @@ function redraw () {
 function onClick(e) {
 	var point = getCursorPosition(e);
 	var pointArr = this.pointArr;
-
+	redraw();
 	for (let i = 0; i < pointArr.length; i++){
 		if (point[0] > pointArr[i].xLeft && point[0] < pointArr[i].xRight){
 			if (point[1] > pointArr[i].yLeft && point[1] < pointArr[i].yRight){
@@ -177,7 +177,7 @@ function drawInfo (info){
 	var point = info.point;
 	let width = canvasInfo.width / 25 * 2;
 	let height = canvasInfo.height / 50 * 2;
-	let text = "Value: [" + info.obj.obj.value + "]";
+	
 
 	ctx.fillStyle = '#d5dddf';
 	ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
@@ -186,10 +186,15 @@ function drawInfo (info){
     
     let oldTreeArr = createCoordArray(window.binarySearchTree);
     drawCurveToParent(ctx, oldTreeArr, canvasInfo, '#f0f0f0');
-    drawCurveToParent(ctx, arr, canvasInfo, '#000', true);
+    drawCurveToParent(ctx, arr, canvasInfo, '#a8bac5', true);
     drawNodes(canvas, oldTreeArr, canvasInfo);
-
+    let text;
+    text = "X,Y  : " + point[0] + "," + point[1];
     drawText(text, {x: width / 10, y: height / 10});
+    text = "Value: " + info.obj.obj.value;
+    drawText(text, {x: width / 10, y: 10 * height / 10});
+    text = "Index: " + info.obj.obj.index;
+    drawText(text, {x: width / 10, y: 20 * height / 10});
 }
 function drawText(text, coord){
 	var canvasObj = document.getElementById('canvasId');
@@ -199,7 +204,7 @@ function drawText(text, coord){
 	ctx.beginPath();
 	ctx.textBaseline = "top";
 	ctx.textAlign = "left";
-	ctx.font='2em arial';
+	ctx.font='1.5em courier';
 	ctx.fillStyle = '#000';
     ctx.fillText(text, coord.x, coord.y);
 }
@@ -394,7 +399,7 @@ function draw(onScreen) {
 		} else {
 			if (retval == 0){
 				endDraw = true;
-				drawText("Iteration : " + iterator, {x: width - 1.5 * width / 10, y: height / 50});
+				drawText("Iteration : " + iterator, {x: width - 1.8 * width / 10, y: height / 50 * 2 / 10});
 			}
 		}
 		iterator++;
